@@ -4,15 +4,15 @@ import lombok.*;
 
 import javax.persistence.*;
 
-@Entity(name="GroupProgress")
-@Table(name="group_progress")
+@Entity(name="GroupMissionProgress")
+@Table(name="group_mission_progress")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @ToString
-public class GroupProgress {
+public class GroupMissionProgress {
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

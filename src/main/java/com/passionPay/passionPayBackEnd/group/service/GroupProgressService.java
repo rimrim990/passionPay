@@ -3,7 +3,7 @@ package com.passionPay.passionPayBackEnd.group.service;
 import com.passionPay.passionPayBackEnd.group.dto.GroupProgressDto;
 import com.passionPay.passionPayBackEnd.member.dto.MemberInfoDto;
 import com.passionPay.passionPayBackEnd.group.domain.Group;
-import com.passionPay.passionPayBackEnd.group.domain.GroupProgress;
+import com.passionPay.passionPayBackEnd.group.domain.GroupMissionProgress;
 import com.passionPay.passionPayBackEnd.group.repository.GroupMemberRepository;
 import com.passionPay.passionPayBackEnd.group.repository.GroupMissionRepository;
 import com.passionPay.passionPayBackEnd.group.repository.GroupProgressRepository;
@@ -27,19 +27,19 @@ public class GroupProgressService {
     public GroupProgressDto save(Long memberId, Long groupMissionId) {
         return groupMissionRepository.findById(groupMissionId)
                 .map(groupMission ->
-                    groupMemberRepository.findByMemberIdAndGroupId(memberId, groupMission.getGroup().getGroupId())
+                    groupMemberRepository.findByMemberIdAndGroupId(memberId, groupMission.getGroup().getId())
                             .map(groupMember -> {
-                                GroupProgress groupProgress = GroupProgress.builder()
+                                GroupMissionProgress groupMissionProgress = GroupMissionProgress.builder()
                                         .groupMember(groupMember)
                                         .complete(false)
                                         .groupMission(groupMission)
                                         .build();
-                                groupProgressRepository.save(groupProgress);
+                                groupProgressRepository.save(groupMissionProgress);
                                 return GroupProgressDto.builder()
-                                        .groupProgressId(groupProgress.getGroupProgressId())
+                                        .groupProgressId(groupMissionProgress.getId())
                                         .memberInfo(MemberInfoDto.of(groupMember.getMember()))
-                                        .completed(groupProgress.isComplete())
-                                        .missionName(groupProgress.getGroupMission().getMissionName())
+                                        .completed(groupMissionProgress.isComplete())
+                                        .missionName(groupMissionProgress.getGroupMission().getContent())
                                         .build();
                             }).orElseThrow(RuntimeException::new))
                 .orElseThrow(RuntimeException::new);
@@ -47,10 +47,10 @@ public class GroupProgressService {
 
     // find
     public int getMyCount(Group group) {
-        return groupMemberRepository.findByMemberIdAndGroupId(SecurityUtil.getCurrentMemberId(), group.getGroupId())
+        return groupMemberRepository.findByMemberIdAndGroupId(SecurityUtil.getCurrentMemberId(), group.getId())
                 .map(groupMember -> {
                     // 내가 성공한 미션 개수
-                    int count = groupProgressRepository.findCountByGroupMemberAndGroupMission(groupMember.getGroupMemberId(), group);
+                    int count = groupProgressRepository.findCountByGroupMemberAndGroupMission(groupMember.getId(), group);
                     // 미션 개수 총 합
                     int missionCount = groupMissionRepository.findByGroup(group).size();
                     return count / missionCount * 100;
@@ -67,16 +67,16 @@ public class GroupProgressService {
     // update
     public GroupProgressDto update(Long groupProgressId, boolean complete) {
         return groupProgressRepository.findById(groupProgressId)
-                .map(groupProgress -> {
-                    if (groupProgress.getGroupMember().getMemberId() != SecurityUtil.getCurrentMemberId())
+                .map(groupMissionProgress -> {
+                    if (groupMissionProgress.getGroupMember().getMemberId() != SecurityUtil.getCurrentMemberId())
                         throw new RuntimeException("접근 권한 없음");
-                    groupProgress.setComplete(complete);
-                    groupProgressRepository.save(groupProgress);
+                    groupMissionProgress.setComplete(complete);
+                    groupProgressRepository.save(groupMissionProgress);
                     return GroupProgressDto.builder()
-                            .missionName(groupProgress.getGroupMission().getMissionName())
-                            .groupProgressId(groupProgress.getGroupProgressId())
-                            .completed(groupProgress.isComplete())
-                            .memberInfo(MemberInfoDto.of(groupProgress.getGroupMember().getMember()))
+                            .missionName(groupMissionProgress.getGroupMission().getContent())
+                            .groupProgressId(groupMissionProgress.getId())
+                            .completed(groupMissionProgress.isComplete())
+                            .memberInfo(MemberInfoDto.of(groupMissionProgress.getGroupMember().getMember()))
                             .build();
                 }).orElseThrow(RuntimeException::new);
     }
@@ -84,8 +84,8 @@ public class GroupProgressService {
     // delete
     public boolean delete(Long groupProgressId) {
         return groupProgressRepository.findById(groupProgressId)
-                .map(groupProgress -> {
-                    groupProgressRepository.delete(groupProgress);
+                .map(groupMissionProgress -> {
+                    groupProgressRepository.delete(groupMissionProgress);
                     return true;
                 }).orElse(false);
     }

@@ -6,14 +6,14 @@ import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity(name="GroupComment")
-@Table(name="group_comment")
+@Entity(name="GroupPostComment")
+@Table(name="group_post_comment")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class GroupComment {
+public class GroupPostComment {
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

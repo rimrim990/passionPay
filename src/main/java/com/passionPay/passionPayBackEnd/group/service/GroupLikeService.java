@@ -1,6 +1,6 @@
 package com.passionPay.passionPayBackEnd.group.service;
 
-import com.passionPay.passionPayBackEnd.group.domain.GroupLike;
+import com.passionPay.passionPayBackEnd.group.domain.GroupPostLike;
 import com.passionPay.passionPayBackEnd.group.repository.GroupLikeRepository;
 import com.passionPay.passionPayBackEnd.group.repository.GroupMemberRepository;
 import com.passionPay.passionPayBackEnd.group.repository.GroupPostRepository;
@@ -27,13 +27,13 @@ public class GroupLikeService {
                     groupMemberRepository.findByMemberIdAndGroupId(memberId, groupPost.getGroupMember().getGroupId())
                             // find group member object
                             .map(groupMember -> {
-                                GroupLike groupLike = GroupLike.builder()
+                                GroupPostLike groupPostLike = GroupPostLike.builder()
                                         .groupPost(groupPost)
                                         .groupMember(groupMember)
                                         .build();
                                 // save group like
-                                groupLikeRepository.save(groupLike);
-                                return groupLike.getGroupLikeId();
+                                groupLikeRepository.save(groupPostLike);
+                                return groupPostLike.getId();
                             }).orElseThrow(RuntimeException::new))
                 .orElseThrow(RuntimeException::new);
     }
@@ -48,10 +48,10 @@ public class GroupLikeService {
     // delete group like
     public boolean delete(Long groupLikeId) {
         return groupLikeRepository.findById(groupLikeId)
-                .map(groupLike -> {
-                    if (groupLike.getGroupMember().getMemberId() != SecurityUtil.getCurrentMemberId())
+                .map(groupPostLike -> {
+                    if (groupPostLike.getGroupMember().getMemberId() != SecurityUtil.getCurrentMemberId())
                         return false;
-                    groupLikeRepository.delete(groupLike);
+                    groupLikeRepository.delete(groupPostLike);
                     return true;
                 }).orElse(false);
     }

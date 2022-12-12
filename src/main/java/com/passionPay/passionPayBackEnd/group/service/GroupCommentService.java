@@ -1,7 +1,7 @@
 package com.passionPay.passionPayBackEnd.group.service;
 
 import com.passionPay.passionPayBackEnd.group.dto.GroupCommentDto;
-import com.passionPay.passionPayBackEnd.group.domain.GroupComment;
+import com.passionPay.passionPayBackEnd.group.domain.GroupPostComment;
 import com.passionPay.passionPayBackEnd.group.repository.GroupCommentRepository;
 import com.passionPay.passionPayBackEnd.group.repository.GroupMemberRepository;
 import com.passionPay.passionPayBackEnd.group.repository.GroupPostRepository;
@@ -29,19 +29,19 @@ public class GroupCommentService {
         return groupPostRepository.findById(postId)
                 .map(groupPost -> {
                     // post
-                    GroupComment groupComment = groupMemberRepository
+                    GroupPostComment groupPostComment = groupMemberRepository
                             .findByMemberIdAndGroupId(memberId, groupPost.getGroupMember().getGroupId())
                             // group member
                             .map(groupMember ->
-                                GroupComment.builder()
+                                GroupPostComment.builder()
                                         .content(content)
                                         .groupPost(groupPost)
                                         .groupMember(groupMember)
                                         .build())
                             .orElseThrow(RuntimeException::new);
                     // save
-                    groupCommentRepository.save(groupComment);
-                    return GroupCommentDto.from(groupComment);
+                    groupCommentRepository.save(groupPostComment);
+                    return GroupCommentDto.from(groupPostComment);
                 })
                 .orElseThrow(RuntimeException::new);
     }
@@ -61,20 +61,20 @@ public class GroupCommentService {
     // update comment
     public GroupCommentDto updateGroupComment(Long groupCommentId, String content) {
         return groupCommentRepository.findById(groupCommentId)
-                .map(groupComment -> {
-                  groupComment.setContent(content);
-                  return GroupCommentDto.from(groupComment);
+                .map(groupPostComment -> {
+                  groupPostComment.setContent(content);
+                  return GroupCommentDto.from(groupPostComment);
                 }).orElseThrow(RuntimeException::new);
     }
 
     // delete comment
     public boolean delete(Long groupCommentId) {
         return groupCommentRepository.findById(groupCommentId)
-                .map(groupComment -> {
-                    if (groupComment.getGroupMember().getMemberId() != SecurityUtil.getCurrentMemberId())
+                .map(groupPostComment -> {
+                    if (groupPostComment.getGroupMember().getMemberId() != SecurityUtil.getCurrentMemberId())
                         return false;
                     // 연관관계 제거
-                    groupCommentRepository.delete(groupComment);
+                    groupCommentRepository.delete(groupPostComment);
                     return true;
                 }).orElseThrow(RuntimeException::new);
     }

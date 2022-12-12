@@ -24,30 +24,18 @@ public class Planner {
     @Column(name="member_id", nullable=false)
     private Long memberId;
 
-    @Column(name="date", nullable=false)
-    private LocalDate date;
-
-    @Column(name="d_day")
-    private LocalDate dDay;
+    @Column(name="created_at", nullable=false)
+    private LocalDate createdAt;
 
     @OneToMany(cascade=CascadeType.REMOVE)
     @Column(name="tasks")
     private List<Task> tasks;
 
-    @Column(name="current_study_time")
-    private LocalTime currentStudyTime;
-
     @Column(name="expected_study_time")
     private LocalTime expectedStudyTime;
 
-    @Column(name="like_count")
-    private int likeCount;
-
     @Column(name="comment", nullable=false)
     private String comment;
-
-    @Column(name="evaluation")
-    private String evaluation;
 
     public boolean addTask(Task task) {
         return this.tasks.add(task);

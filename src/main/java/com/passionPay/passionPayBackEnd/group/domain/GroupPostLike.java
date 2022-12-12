@@ -4,14 +4,14 @@ import lombok.*;
 
 import javax.persistence.*;
 
-@Entity(name="GroupLike")
-@Table(name="group_like", uniqueConstraints = @UniqueConstraint(columnNames = {"group_member_id", "group_post_id"}))
+@Entity(name="GroupPostLike")
+@Table(name="group_post_like", uniqueConstraints = @UniqueConstraint(columnNames = {"group_member_id", "group_post_id"}))
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class GroupLike {
+public class GroupPostLike {
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

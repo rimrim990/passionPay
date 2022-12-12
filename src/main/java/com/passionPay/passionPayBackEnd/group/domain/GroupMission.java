@@ -19,8 +19,8 @@ public class GroupMission {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="goal_name")
-    private String missionName;
+    @Column(name="content")
+    private String content;
 
     @JsonIgnore
     @ManyToOne

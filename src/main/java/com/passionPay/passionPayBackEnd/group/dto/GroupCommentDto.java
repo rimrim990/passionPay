@@ -1,7 +1,7 @@
 package com.passionPay.passionPayBackEnd.group.dto;
 
 import com.passionPay.passionPayBackEnd.member.dto.MemberInfoDto;
-import com.passionPay.passionPayBackEnd.group.domain.GroupComment;
+import com.passionPay.passionPayBackEnd.group.domain.GroupPostComment;
 import com.passionPay.passionPayBackEnd.util.DateUtil;
 import lombok.*;
 
@@ -16,13 +16,13 @@ public class GroupCommentDto {
     private MemberInfoDto memberInfo;
     private String createdAt;
 
-    public static GroupCommentDto from(GroupComment groupComment) {
-        MemberInfoDto memberInfo = MemberInfoDto.of(groupComment.getGroupMember().getMember());
+    public static GroupCommentDto from(GroupPostComment groupPostComment) {
+        MemberInfoDto memberInfo = MemberInfoDto.of(groupPostComment.getGroupMember().getMember());
         return GroupCommentDto.builder()
-                .groupCommentId(groupComment.getGroupCommentId())
+                .groupCommentId(groupPostComment.getId())
                 .memberInfo(memberInfo)
-                .content(groupComment.getContent())
-                .createdAt(DateUtil.formatDateTimeToString(groupComment.getCreatedAt()))
+                .content(groupPostComment.getContent())
+                .createdAt(DateUtil.formatDateTimeToString(groupPostComment.getCreatedAt()))
                 .build();
     }
 }
