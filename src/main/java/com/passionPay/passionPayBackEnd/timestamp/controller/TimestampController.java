@@ -1,4 +1,4 @@
-package com.passionPay.passionPayBackEnd.subject.controller;
+package com.passionPay.passionPayBackEnd.timestamp.controller;
 
 import com.passionPay.passionPayBackEnd.timestamp.dto.TimestampRequestDto;
 import com.passionPay.passionPayBackEnd.task.domain.Task;
