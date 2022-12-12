@@ -15,7 +15,7 @@ public class GroupLike {
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long groupLikeId;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name="group_post_id")

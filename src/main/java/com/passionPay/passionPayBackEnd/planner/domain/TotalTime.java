@@ -16,7 +16,7 @@ public class TotalTime {
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long totalTimeId;
+    private Long id;
 
     @Column(name="planner_id")
     private Long plannerId;

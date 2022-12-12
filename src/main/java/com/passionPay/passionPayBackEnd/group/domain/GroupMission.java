@@ -17,7 +17,7 @@ public class GroupMission {
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long groupMissionId;
+    private Long id;
 
     @Column(name="goal_name")
     private String missionName;

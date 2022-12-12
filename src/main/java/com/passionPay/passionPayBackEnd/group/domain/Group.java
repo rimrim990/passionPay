@@ -18,7 +18,7 @@ public class Group {
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long groupId;
+    private Long id;
 
     @OneToMany(mappedBy="group", cascade = CascadeType.REMOVE)
     @Column(name="group_member")

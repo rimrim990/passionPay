@@ -17,7 +17,7 @@ public class GroupComment {
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long groupCommentId;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name="post_id")

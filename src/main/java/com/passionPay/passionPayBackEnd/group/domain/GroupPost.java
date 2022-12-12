@@ -19,7 +19,7 @@ public class GroupPost {
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long groupPostId;
+    private Long id;
 
     @ManyToOne
     private GroupMember groupMember; // 게시글 작성자

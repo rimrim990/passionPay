@@ -22,7 +22,7 @@ public class Task {
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long taskId;
+    private Long id;
 
     @JsonIgnore
     @OneToMany(cascade=CascadeType.REMOVE)

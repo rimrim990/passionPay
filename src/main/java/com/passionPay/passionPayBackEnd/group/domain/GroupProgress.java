@@ -16,7 +16,7 @@ public class GroupProgress {
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long groupProgressId;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name="group_mission")

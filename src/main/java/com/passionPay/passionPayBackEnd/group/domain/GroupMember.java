@@ -16,7 +16,7 @@ public class GroupMember {
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long groupMemberId;
+    private Long id;
 
     @ManyToOne
     private Group group;

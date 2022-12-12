@@ -18,7 +18,7 @@ public class Timestamp {
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long timestampId;
+    private Long id;
 
     @JsonIgnore
     @ManyToOne
