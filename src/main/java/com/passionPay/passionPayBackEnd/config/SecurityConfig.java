@@ -1,9 +1,9 @@
 package com.passionPay.passionPayBackEnd.config;
 
 
-import com.passionPay.passionPayBackEnd.jwt.JwtAccessDeniedHandler;
-import com.passionPay.passionPayBackEnd.jwt.JwtAuthenticationEntryPoint;
-import com.passionPay.passionPayBackEnd.jwt.TokenProvider;
+import com.passionPay.passionPayBackEnd.auth.jwt.JwtAccessDeniedHandler;
+import com.passionPay.passionPayBackEnd.auth.jwt.JwtAuthenticationEntryPoint;
+import com.passionPay.passionPayBackEnd.auth.jwt.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

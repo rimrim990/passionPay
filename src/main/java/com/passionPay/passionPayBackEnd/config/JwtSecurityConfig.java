@@ -1,8 +1,8 @@
 package com.passionPay.passionPayBackEnd.config;
 
 
-import com.passionPay.passionPayBackEnd.jwt.JwtFilter;
-import com.passionPay.passionPayBackEnd.jwt.TokenProvider;
+import com.passionPay.passionPayBackEnd.auth.jwt.JwtFilter;
+import com.passionPay.passionPayBackEnd.auth.jwt.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
